@@ -1,11 +1,12 @@
-pub fn gaussian_blur(data: &mut Vec<[u8;3]>, width: usize, height: usize, blur_radius: f32)
-{
-    let bxs = create_box_gauss(blur_radius, 3);
+pub fn gaussian_blur(data: &mut Vec<[u8; 3]>, width: usize, height: usize, sigma: f32) {
+    let passes = 3;
+
+    let bxs = create_box_gauss(sigma, passes);
     let mut backbuf = data.clone();
 
-    box_blur(&mut backbuf, data, width, height, ((bxs[0] - 1) / 2) as usize);
-    box_blur(&mut backbuf, data, width, height, ((bxs[1] - 1) / 2) as usize);
-    box_blur(&mut backbuf, data, width, height, ((bxs[2] - 1) / 2) as usize);
+    for i in 0..passes {
+        box_blur(&mut backbuf, data, width, height, ((bxs[i] - 1) / 2) as usize);
+    }
 }
 
 #[inline]
@@ -15,7 +16,7 @@ fn create_box_gauss(sigma: f32, n: usize)
     let n_float = n as f32;
 
     // Ideal averaging filter width
-    let w_ideal = (12.0 * sigma * sigma / n_float).sqrt() + 1.0;
+    let w_ideal = (12.0 * sigma * sigma / n_float + 1.0).sqrt();
     let mut wl: i32 = w_ideal.floor() as i32;
 
     if wl % 2 == 0 { wl -= 1; };
@@ -36,15 +37,17 @@ fn create_box_gauss(sigma: f32, n: usize)
             sizes.push(wu);
         }
     }
+    println!("wu {}, wl {}, m_ideal {}, sizes {:?}", wu, wl, m_ideal, sizes);
 
     sizes
 }
 
 /// Needs 2x the same image
+/// TODO: 似乎比预处理结果更模糊？
 #[inline]
 fn box_blur(backbuf: &mut Vec<[u8;3]>, frontbuf: &mut Vec<[u8;3]>, width: usize, height: usize, blur_radius: usize)
 {
-    box_blur_horz(backbuf, frontbuf, width, height, blur_radius); // <- second line ovverrides first line, why?
+    box_blur_horz(backbuf, frontbuf, width, height, blur_radius); // <- second line overrides first line, why?
     *backbuf = frontbuf.clone();
     box_blur_vert(backbuf, frontbuf, width, height, blur_radius); // both functions should mutate the data, not clone it!
 }
