@@ -21,14 +21,7 @@
 //! gaussian_blur(&mut data, width, height, 10.0);
 //! ```
 
-#![feature(test)]
-
 mod blur;
-
-#[cfg(test)]
-mod test;
-#[cfg(test)]
-mod bench;
 
 pub mod utils;
 
