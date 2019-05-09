@@ -25,5 +25,4 @@ mod blur;
 
 pub mod utils;
 
-pub use blur::gaussian_blur as gaussian_blur;
-
+pub use blur::gaussian_blur;
