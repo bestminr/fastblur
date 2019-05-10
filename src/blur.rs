@@ -1,4 +1,4 @@
-pub fn gaussian_blur(data: &mut Vec<[u8; 3]>, width: usize, height: usize, sigma: f32) {
+pub fn fast_blur(data: &mut Vec<[u8; 3]>, width: usize, height: usize, sigma: f32) {
     let passes = 3;
 
     let bxs = create_box_gauss(sigma, passes);
@@ -46,10 +46,10 @@ fn create_box_gauss(sigma: f32, n: usize) -> Vec<i32> {
             sizes.push(wu);
         }
     }
-    println!(
-        "wu {}, wl {}, m_ideal {}, sizes {:?}",
-        wu, wl, m_ideal, sizes
-    );
+    // println!(
+    //     "wu {}, wl {}, m_ideal {}, sizes {:?}",
+    //     wu, wl, m_ideal, sizes
+    // );
 
     sizes
 }

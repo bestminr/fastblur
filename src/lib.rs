@@ -14,15 +14,15 @@
 //! ```
 //!
 //! ```rust,ignore
-//! use fastblur::gaussian_blur;
+//! use fastblur::fast_blur;
 //!
 //! // data is a Vec<[u8;3]> - 3 items for R, G and B.
 //! // This format will probably change.
-//! gaussian_blur(&mut data, width, height, 10.0);
+//! fast_blur(&mut data, width, height, 10.0);
 //! ```
 
 mod blur;
 
 pub mod utils;
 
-pub use blur::gaussian_blur;
+pub use blur::fast_blur;

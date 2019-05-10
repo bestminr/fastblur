@@ -14,11 +14,11 @@ fastblur = { git = "https://github.com/fschutt/fastblur" }
 ```
 
 ```rust
-use fastblur::gaussian_blur;
+use fastblur::fast_blur;
 
 // data is a Vec<[u8;3]> - 3 items for R, G and B.
 // This format will probably change.
-gaussian_blur(&mut data, width, height, 10.0);
+fast_blur(&mut data, width, height, 10.0);
 ```
 
 __NOTE__: This currently crashes with large amounts of pixels. It is also not

@@ -6,7 +6,7 @@ extern crate test;
 use image::{GenericImage, Pixel};
 use test::Bencher;
 
-use fastblur::gaussian_blur;
+use fastblur::fast_blur;
 use fastblur::utils;
 
 // #[test]
@@ -57,7 +57,7 @@ fn test_blur_image_correctly() {
             }
         }
 
-        gaussian_blur(&mut data_new, width as usize, height as usize, 6.0);
+        fast_blur(&mut data_new, width as usize, height as usize, 6.0);
         utils::write_image(
             "output/test_blur_image_correctly.ppm",
             &data_new,
@@ -89,7 +89,7 @@ fn test_blur_results() {
         image_data.push([d.0, d.1, d.2]);
     }
 
-    gaussian_blur(&mut image_data, width as usize, height as usize, 2.0);
+    fast_blur(&mut image_data, width as usize, height as usize, 2.0);
     utils::write_image(
         "output/img1.ppm",
         &image_data,
@@ -133,7 +133,7 @@ fn bench_blur_image(b: &mut test::Bencher) {
         }
 
         b.iter(|| {
-            gaussian_blur(&mut data_new, width as usize, height as usize, 50.0);
+            fast_blur(&mut data_new, width as usize, height as usize, 50.0);
         });
     } else {
         panic!("could not decode png");

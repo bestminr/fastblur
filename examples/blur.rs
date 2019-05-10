@@ -1,7 +1,7 @@
 extern crate fastblur;
 extern crate image;
 
-use fastblur::gaussian_blur;
+use fastblur::fast_blur;
 use image::{GenericImage, ImageBuffer, Pixel, Rgb};
 use std::path::Path;
 
@@ -12,11 +12,11 @@ struct TestItem {
 
 fn main() {
     let test_items: Vec<TestItem> = vec![
-        // TestItem { input_name: String::from("test-images/blur1x100.jpg"), radius: 1.0, },
-        //        TestItem { input_name: String::from ("test-images/blur10x100.jpg"), radius: 10.0 },
-               TestItem { input_name: String::from("test-images/blur15x100.jpg"), radius: 15.0 },
-        //        TestItem { input_name: String::from("test-images/blur25x100.jpg"), radius: 25.0 },
-        //        TestItem { input_name: String::from("test-images/blur30x100.jpg"), radius: 30.0 },
+        TestItem { input_name: String::from("test-images/blur1x100.jpg"), radius: 1.0, },
+        TestItem { input_name: String::from ("test-images/blur10x100.jpg"), radius: 10.0 },
+        TestItem { input_name: String::from("test-images/blur15x100.jpg"), radius: 15.0 },
+        TestItem { input_name: String::from("test-images/blur25x100.jpg"), radius: 25.0 },
+        TestItem { input_name: String::from("test-images/blur30x100.jpg"), radius: 30.0 },
     ];
 
     for item in test_items {
@@ -39,7 +39,7 @@ fn run_test_item(item: TestItem) {
     // http://blog.ivank.net/fastest-gaussian-blur.html
     let radius = item.radius.sqrt();
 
-    gaussian_blur(&mut image_data, width as usize, height as usize, radius);
+    fast_blur(&mut image_data, width as usize, height as usize, radius);
 
     // use fastblur::utils;
     // utils::write_image("output/f_blur10x100.ppm", &image_data, width as usize, height as usize).unwrap();
