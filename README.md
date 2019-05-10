@@ -8,9 +8,11 @@ Original taken from http://blog.ivank.net/fastest-gaussian-blur.html
 The image is assumed to be an RGB image with three channels.
 This should change in the future, so you can blur as many channels as you want. Still very WIP.
 
+### Rust Crate
+
 ```rust
 #[dependencies]
-fastblur = { git = "https://github.com/fschutt/fastblur" }
+fastblur = { git = "https://github.com/bestminr/fastblur" }
 ```
 
 ```rust
@@ -21,8 +23,23 @@ use fastblur::fast_blur;
 fast_blur(&mut data, width, height, 10.0);
 ```
 
-__NOTE__: This currently crashes with large amounts of pixels. It is also not
-"the fastest" Gaussian blur. It currently takes 22ms - but it is independent of the
-blur size. A regular Gaussian blur depends on the size of the blur. At a 3px blur,
-the example from the `imageproc` library needs 4ms. At a 10px blur, it already needs
-28ms. And so on. This library always needs 22ms, no matter of the size of the blur.
+### WebAssembly module
+
+Thanks to [wasm-pack](https://github.com/rustwasm/wasm-pack), we can publish a WebAssembly module to work inside browsers.
+
+Example usage:
+
+```typescript
+export function applyFastBlur(imageData: ImageData, blurRadius: number): Bluebird<ImageData> {
+  return new Promise((resolve, reject) => {
+    import('@bestminr/fastblur')
+      .then((m) => {
+        const { width, height } = imageData
+        const inputDataArr = new Uint8Array(imageData.data)
+        m.do_fast_blur(inputDataArr, width, height, blurRadius)
+        const outputImageData = new ImageData(new Uint8ClampedArray(inputDataArr), width, height)
+        return resolve(outputImageData)
+      }).catch(reject)
+  })
+}
+```
