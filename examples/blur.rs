@@ -13,7 +13,7 @@ struct TestItem {
 fn main() {
     let test_items: Vec<TestItem> = vec![
         TestItem { input_name: String::from("test-images/blur1x100.jpg"), radius: 1.0, },
-        TestItem { input_name: String::from ("test-images/blur10x100.jpg"), radius: 10.0 },
+        TestItem { input_name: String::from("test-images/blur10x100.jpg"), radius: 10.0 },
         TestItem { input_name: String::from("test-images/blur15x100.jpg"), radius: 15.0 },
         TestItem { input_name: String::from("test-images/blur25x100.jpg"), radius: 25.0 },
         TestItem { input_name: String::from("test-images/blur30x100.jpg"), radius: 30.0 },
