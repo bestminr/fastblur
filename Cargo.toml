@@ -1,12 +1,22 @@
 [package]
 name = "fastblur"
 version = "0.1.0"
-authors = ["Felix Schütt <felix.schuett@maps4print.com>"]
+authors = ["Chen Min <chenmin@bestminr.com>", "Felix Schütt <felix.schuett@maps4print.com>"]
 repository = "https://github.com/fschutt/fastblur"
 homepage = "https://github.com/fschutt/fastblur"
 license = "MIT"
 description = "Linear-time gaussian blur"
 
+[lib]
+crate-type = [ "cdylib" ]
+
+[profile.release]
+debug = false
+lto = true
+
 [dev-dependencies]
 image = "0.15.0"
 itertools = "0.8.0"
+
+[dependencies]
+wasm-bindgen = "0.2.43"
