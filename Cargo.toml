@@ -1,11 +1,12 @@
 [package]
 name = "fastblur"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Chen Min <chenmin@bestminr.com>", "Felix Schütt <felix.schuett@maps4print.com>"]
 repository = "https://github.com/bestminr/fastblur"
 homepage = "https://github.com/bestminr/fastblur"
 license = "MIT"
 description = "Linear-time gaussian blur"
+keywords = [ "webassembly" ]
 
 [lib]
 crate-type = [ "cdylib", "rlib" ]
