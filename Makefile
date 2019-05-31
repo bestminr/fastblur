@@ -1,5 +1,5 @@
 pkg/fastblur_bg.wasm: src/lib.rs
-	wasm-pack build --scope bestminr --target web --release
+	wasm-pack build --scope bestminr --target web --release -- --features webassembly
 	# sed -i ".bak" "1s/\g';/g.wasm\';/" pkg/fastblur.js
 
 build-wasm: pkg/fastblur_bg.wasm

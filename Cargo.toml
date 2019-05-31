@@ -15,8 +15,13 @@ crate-type = [ "cdylib", "rlib" ]
 debug = false
 lto = true
 
+[features]
+default = []
+
+webassembly = ["wasm-bindgen"]
+
 [dev-dependencies]
 image = "0.15.0"
 
 [dependencies]
-wasm-bindgen = "0.2.45"
+wasm-bindgen = { version = "0.2.45", optional = true }
