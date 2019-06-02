@@ -1,6 +1,7 @@
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const resolve = (...p) => {
   return path.resolve.apply(null, [__dirname, ...p])
@@ -41,6 +42,16 @@ module.exports = {
       template: 'src/index.html',
       chunksSortMode: 'dependency',
     }),
+    new CopyWebpackPlugin([
+      {
+        from: '../pkg/fastblur_bg.wasm',
+        to: 'dist/static'
+      },
+      {
+        from: 'static',
+        to: 'dist/static'
+      },
+    ])
   ],
 
   resolve: {
