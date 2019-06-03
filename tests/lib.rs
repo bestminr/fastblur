@@ -9,7 +9,7 @@ use test::Bencher;
 use fastblur::fast_blur;
 use fastblur::utils;
 
-// #[test]
+#[test]
 fn test_blur_image_correctly() {
     let image_bytes = include_bytes!("../assets/cballs.png");
     let image_reference_bytes = include_bytes!("../assets/cballs_reference_5px_blur.png");
@@ -78,6 +78,7 @@ fn test_blur_image_correctly() {
     }
 }
 
+#[test]
 fn test_blur_results() {
     use std::path::Path;
     let img1 = image::open(Path::new("data/img1.jpg")).unwrap();
@@ -99,15 +100,6 @@ fn test_blur_results() {
     .unwrap();
 }
 
-#[bench]
-fn bench_blur_result(b: &mut Bencher) {
-    b.iter(|| {
-        (0..1).fold(0, |_, _| {
-            test_blur_results();
-            2
-        });
-    });
-}
 
 #[bench]
 fn bench_blur_image(b: &mut test::Bencher) {

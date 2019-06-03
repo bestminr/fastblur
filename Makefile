@@ -6,3 +6,6 @@ build-wasm: pkg/fastblur_bg.wasm
 
 copy-wasm: pkg/fastblur_bg.wasm
 	cp -r pkg ~/work/blueberry/node_modules/@bestminr/fastblur
+
+bench:
+	cargo +nightly bench  --tests
